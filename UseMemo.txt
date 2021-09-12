@@ -1,0 +1,38 @@
+import "./styles.css";
+import React, { useEffect } from "react";
+
+export default function App() {
+  const [number, setNumber] = React.useState(0);
+  const [dark, setDark] = React.useState(0);
+  const doubleNumber = React.useMemo(() => {
+    return slowFunction(number);
+  }, [number]);
+  const themeStyles = React.useMemo(() => {
+    return {
+      backgroundColor: dark ? "black" : "white",
+      color: dark ? "white" : "black"
+    };
+  }, [dark]);
+  useEffect(() => {
+    console.log("themeStyles");
+  }, [themeStyles]);
+  return (
+    <>
+      <input
+        type="number"
+        value={number}
+        onChange={(e) => setNumber(parseInt(e.target.value))}
+      />
+      <button onClick={() => setDark((prevDark) => !prevDark)}>
+        {" "}
+        change theme{" "}
+      </button>
+      <div style={themeStyles}>{doubleNumber}</div>
+    </>
+  );
+}
+
+const slowFunction = (num) => {
+  for (let i = 0; i <= 10000; i++) {}
+  return num * 2;
+};

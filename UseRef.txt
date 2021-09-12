@@ -1,0 +1,20 @@
+import "./styles.css";
+import React from "react";
+export default function App() {
+  const [name, setName] = React.useState("");
+  const prevName = React.useRef("");
+
+  React.useEffect(() => {
+    prevName.current = name;
+  }, [name]);
+
+  return (
+    <div className="App">
+      <input value={name} onChange={(e) => setName(e.target.value)} />
+      <div>
+        my name is {name} and it was {prevName.current}
+      </div>
+      <button> btn </button>
+    </div>
+  );
+}
